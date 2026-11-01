@@ -1,0 +1,4 @@
+/target
+*.identimorph.part
+.DS_Store
+Thumbs.db

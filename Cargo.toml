@@ -1,0 +1,42 @@
+[package]
+name = "identimorph"
+version = "0.1.0"
+edition = "2024"
+description = "IdentiMorph (id: X -> X^n) — Async Tokio + egui file & AI model transporter across local drives, SMB shares, and Tailscale SSH."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/crussella0129/IdentiMorph"
+readme = "README.md"
+keywords = ["egui", "tokio", "tailscale", "file-transfer", "ai-models"]
+categories = ["gui", "filesystem", "network-programming"]
+
+# Isolate from any ancestor Cargo.toml in the home directory.
+[workspace]
+resolver = "3"
+
+[dependencies]
+anyhow = "1.0.104"
+blake3 = "1.8.7"
+bytes = "1.12.1"
+dirs = "7.0.0"
+eframe = { version = "0.37.0", default-features = false, features = ["glow", "default_fonts", "persistence", "wayland", "x11", "accesskit", "clipboard", "links"] }
+egui = "0.37.0"
+futures-util = "0.3.34"
+rfd = "0.17.2"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+sha2 = "0.11.1"
+tokio = { version = "1.54.1", features = ["rt-multi-thread", "macros", "fs", "io-util", "process", "sync", "time"] }
+tokio-util = { version = "0.7.20", features = ["io", "rt"] }
+
+[dev-dependencies]
+tempfile = "3.27.0"
+
+[profile.dev]
+debug = 0
+
+[profile.test]
+debug = 0
+
+[profile.release]
+strip = true
+lto = "thin"
