@@ -722,12 +722,16 @@ pub fn format_bytes(bytes: u64) -> String {
 }
 
 /// Prevents flashing console windows on Windows when spawning background `ssh` / `tailscale` commands.
+#[cfg(windows)]
 pub fn configure_background_command(mut cmd: Command) -> Command {
-    #[cfg(windows)]
-    {
-        const CREATE_NO_WINDOW: u32 = 0x0800_0000;
-        cmd.creation_flags(CREATE_NO_WINDOW);
-    }
+    const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+    cmd.creation_flags(CREATE_NO_WINDOW);
+    cmd
+}
+
+/// Identity pass-through on non-Windows platforms.
+#[cfg(not(windows))]
+pub fn configure_background_command(cmd: Command) -> Command {
     cmd
 }
 
